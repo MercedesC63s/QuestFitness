@@ -8,17 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#121110;
-    --bg-soft:#1b1917;
-    --card:#211e1b;
-    --card-hi:#2a2622;
-    --line: rgba(245,242,235,0.09);
-    --ink:#F5F2EB;
-    --ink-dim:#A9A399;
-    --lime:#C6FF3D;
-    --coral:#FF5A36;
-    --lime-dim: rgba(198,255,61,0.14);
-    --coral-dim: rgba(255,90,54,0.14);
+    --bg:#0A0A0A;
+    --bg-soft:#131313;
+    --card:#181818;
+    --card-hi:#212121;
+    --line: rgba(255,255,255,0.10);
+    --ink:#F5F5F5;
+    --ink-dim:#9A9A9A;
+    --lime:#E8262B;
+    --coral:#FFFFFF;
+    --lime-dim: rgba(232,38,43,0.16);
+    --coral-dim: rgba(255,255,255,0.10);
     --radius: 14px;
     --display: 'Anton', sans-serif;
     --body: 'Inter', sans-serif;
@@ -51,7 +51,7 @@
   a{color:inherit;}
   button{font-family:var(--body);}
 
-  ::selection{background:var(--lime); color:#12110F;}
+  ::selection{background:var(--lime); color:#0A0A0A;}
 
   :focus-visible{
     outline:3px solid var(--lime);
@@ -146,8 +146,8 @@
     transition: transform .12s ease, background .15s ease, border-color .15s ease;
   }
   .btn:active{transform:scale(0.96);}
-  .btn-primary{background:var(--lime); color:#12110F;}
-  .btn-primary:hover{background:#d8ff70;}
+  .btn-primary{background:var(--lime); color:#0A0A0A;}
+  .btn-primary:hover{background:#ff4d4f;}
   .btn-ghost{background:transparent; border-color:var(--line); color:var(--ink);}
   .btn-ghost:hover{border-color:var(--ink-dim);}
 
@@ -185,13 +185,13 @@
     font-size:22px;
     letter-spacing:0.03em;
     background:var(--lime);
-    color:#12110F;
+    color:#0A0A0A;
     border:none;
     border-radius:14px;
     cursor:pointer;
     transition: transform .08s ease, background .15s ease;
   }
-  .rep-btn:active{transform:scale(0.97); background:#d8ff70;}
+  .rep-btn:active{transform:scale(0.97); background:#ff4d4f;}
   .rep-reset{
     margin-top:12px;
     background:none;
@@ -266,8 +266,8 @@
   .ex-muscle{
     font-family:var(--mono);
     font-size:10.5px;
-    color:var(--coral);
-    background:var(--coral-dim);
+    color:var(--lime);
+    background:var(--lime-dim);
     padding:4px 9px;
     border-radius:999px;
     white-space:nowrap;
@@ -278,8 +278,9 @@
     font-family:var(--mono); font-size:12px; color:var(--ink-dim);
     display:flex; gap:14px;
   }
-  .ex-start{
-    margin-top:6px;
+  .ex-btn-row{display:flex; gap:8px; margin-top:6px;}
+  .ex-start, .ex-form{
+    flex:1;
     background:transparent;
     border:1px solid var(--line);
     color:var(--ink);
@@ -293,6 +294,7 @@
     transition: all .15s ease;
   }
   .ex-start:hover{border-color:var(--lime); color:var(--lime);}
+  .ex-form:hover{border-color:var(--coral); color:var(--coral);}
 
   /* timer modal */
   .modal-backdrop{
@@ -311,7 +313,7 @@
     text-align:center;
   }
   .modal h3{font-size:26px; margin-bottom:6px;}
-  .modal .modal-muscle{color:var(--coral); font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.1em;}
+  .modal .modal-muscle{color:var(--lime); font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.1em;}
   .timer-ring{
     font-family:var(--display);
     font-size:64px;
@@ -321,6 +323,89 @@
   .timer-phase{color:var(--ink-dim); font-size:13px; font-family:var(--mono); text-transform:uppercase; letter-spacing:0.1em;}
   .modal-actions{display:flex; gap:10px; margin-top:26px;}
   .modal-actions .btn{flex:1; justify-content:center;}
+
+  /* Camera form-check modal */
+  .cam-modal{max-width:520px;}
+  .cam-note{
+    font-size:12px;
+    color:var(--ink-dim);
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    margin:10px 0 4px;
+    text-align:left;
+    display:none;
+  }
+  .cam-note.show{display:block;}
+  .cam-stage{
+    position:relative;
+    width:100%;
+    aspect-ratio:4/3;
+    background:#000;
+    border-radius:12px;
+    overflow:hidden;
+    margin-top:16px;
+    border:1px solid var(--line);
+  }
+  .cam-stage video, .cam-stage canvas{
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    transform:scaleX(-1);
+  }
+  .cam-loading{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--ink-dim);
+    font-family:var(--mono);
+    font-size:13px;
+    background:#000;
+  }
+  .cam-loading.hide{display:none;}
+  .cam-stats{
+    display:flex;
+    gap:12px;
+    margin-top:16px;
+  }
+  .cam-stat{
+    flex:1;
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px;
+    text-align:center;
+  }
+  .cam-stat-label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:var(--ink-dim);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:4px;
+  }
+  .cam-stat-value{
+    font-family:var(--display);
+    font-size:32px;
+    color:var(--lime);
+  }
+  .cam-feedback{
+    margin-top:16px;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:var(--bg-soft);
+    color:var(--ink);
+    font-size:14px;
+    text-align:center;
+    min-height:20px;
+  }
+  .cam-feedback.good{border-color:var(--coral); color:var(--coral);}
+  .cam-feedback.warn{border-color:var(--lime); color:var(--lime);}
 
   /* ---------- QUIZ ---------- */
   .quiz-wrap{
@@ -336,8 +421,8 @@
   .quiz-progress i{
     flex:1; height:4px; border-radius:4px; background:var(--line);
   }
-  .quiz-progress i.done{background:var(--lime);}
-  .quiz-progress i.current{background:var(--coral);}
+  .quiz-progress i.done{background:var(--coral);}
+  .quiz-progress i.current{background:var(--lime);}
   .q-count{font-family:var(--mono); font-size:12px; color:var(--ink-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.08em;}
   .q-text{font-family:var(--display); font-size:26px; margin-bottom:22px; line-height:1.15;}
   .q-options{display:flex; flex-direction:column; gap:10px;}
@@ -353,8 +438,8 @@
     transition: border-color .15s ease, background .15s ease;
   }
   .q-opt:hover{border-color:var(--ink-dim);}
-  .q-opt.correct{border-color:var(--lime); background:var(--lime-dim); color:var(--lime);}
-  .q-opt.wrong{border-color:var(--coral); background:var(--coral-dim); color:var(--coral);}
+  .q-opt.correct{border-color:var(--coral); background:var(--coral-dim); color:var(--coral);}
+  .q-opt.wrong{border-color:var(--lime); background:var(--lime-dim); color:var(--lime);}
   .q-opt:disabled{cursor:default;}
   .quiz-footer{
     display:flex; justify-content:space-between; align-items:center;
@@ -364,6 +449,24 @@
   .quiz-score b{color:var(--lime);}
   .quiz-done{text-align:center;}
   .quiz-done .big-score{font-family:var(--display); font-size:64px; color:var(--lime); margin:10px 0;}
+
+  .penalty-box{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    border:1px solid var(--lime);
+    background:var(--lime-dim);
+    border-radius:10px;
+    text-align:center;
+  }
+  .penalty-box.show{display:block;}
+  .penalty-text{
+    color:var(--ink);
+    font-size:14px;
+    margin-bottom:14px;
+  }
+  .penalty-text b{color:var(--lime);}
+  .penalty-btn{width:100%; justify-content:center;}
 
   /* ---------- GAMES ---------- */
   .game-grid{
@@ -392,8 +495,8 @@
     transition:background .1s ease;
     user-select:none;
   }
-  .reaction-box.go{background:var(--lime); color:#12110F;}
-  .reaction-box.early{background:var(--coral); color:#12110F;}
+  .reaction-box.go{background:var(--lime); color:#0A0A0A;}
+  .reaction-box.early{background:var(--card-hi); color:var(--lime); border-color:var(--lime);}
   .reaction-msg{font-family:var(--display); font-size:20px; text-transform:uppercase;}
   .reaction-sub{font-family:var(--mono); font-size:12px; margin-top:6px; opacity:0.75;}
   .reaction-stats{
@@ -478,7 +581,7 @@
     width:100%;
     padding:14px;
     background:var(--coral);
-    color:#12110F;
+    color:#0A0A0A;
     border:none;
     border-radius:10px;
     font-weight:800;
@@ -488,7 +591,7 @@
     cursor:pointer;
     margin-top:6px;
   }
-  .calc-btn:hover{background:#ff7357;}
+  .calc-btn:hover{background:#e6e6e6;}
 
   .result-box{
     margin-top:20px;
@@ -506,7 +609,7 @@
   .macro-fill{height:100%; border-radius:4px;}
   .macro-fill.protein{background:var(--lime);}
   .macro-fill.carbs{background:var(--coral);}
-  .macro-fill.fat{background:#7fb3ff;}
+  .macro-fill.fat{background:#6B6B6B;}
   .macro-val{width:70px; text-align:right; font-family:var(--mono); font-size:12px;}
 
   .meal-tabs{display:flex; gap:8px; margin-bottom:18px;}
@@ -611,6 +714,38 @@
     <div class="modal-actions">
       <button class="btn btn-ghost" id="modalPause">Pause</button>
       <button class="btn btn-primary" id="modalClose">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Camera form-check modal -->
+<div class="modal-backdrop" id="camBackdrop">
+  <div class="modal cam-modal">
+    <h3 id="camName">Exercise</h3>
+    <div class="modal-muscle" id="camMuscle">Muscle</div>
+    <div class="cam-note" id="camNote"></div>
+
+    <div class="cam-stage">
+      <video id="camVideo" autoplay playsinline muted></video>
+      <canvas id="camCanvas"></canvas>
+      <div class="cam-loading" id="camLoading">Starting camera…</div>
+    </div>
+
+    <div class="cam-stats">
+      <div class="cam-stat">
+        <div class="cam-stat-label">Reps</div>
+        <div class="cam-stat-value" id="camReps">0</div>
+      </div>
+      <div class="cam-stat">
+        <div class="cam-stat-label">Good form</div>
+        <div class="cam-stat-value" id="camGood">0</div>
+      </div>
+    </div>
+
+    <div class="cam-feedback" id="camFeedback">Position yourself in frame to begin.</div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="camClose">Stop &amp; Close</button>
     </div>
   </div>
 </div>
@@ -835,9 +970,13 @@ function renderExercises(filter){
         </div>
         <div class="ex-desc">${e.desc}</div>
         <div class="ex-meta"><span>${e.sets}</span><span>${e.work}s work / ${e.rest}s rest</span></div>
-        <button class="ex-start">Start Timer</button>
+        <div class="ex-btn-row">
+          <button class="ex-start">Start Timer</button>
+          <button class="ex-form">Form Check</button>
+        </div>
       `;
       card.querySelector('.ex-start').addEventListener('click', () => startTimer(e));
+      card.querySelector('.ex-form').addEventListener('click', () => openCameraCheck(e));
       exGrid.appendChild(card);
     });
 }
@@ -942,6 +1081,7 @@ function renderQuiz(){
     <div class="quiz-footer">
       <div class="quiz-score">Score: <b>${quizScore}</b>/${quizQuestions.length}</div>
     </div>
+    <div class="penalty-box" id="penaltyBox"></div>
   `;
 
   quizWrap.querySelectorAll('.q-opt').forEach(btn => {
@@ -951,11 +1091,22 @@ function renderQuiz(){
       if (chosen === item.correct) {
         btn.classList.add('correct');
         quizScore++;
+        setTimeout(() => { quizIndex++; renderQuiz(); }, 900);
       } else {
         btn.classList.add('wrong');
         quizWrap.querySelector(`.q-opt[data-i="${item.correct}"]`).classList.add('correct');
+
+        const penalty = Math.random() < 0.5 ? '10 sit-ups' : '5 push-ups';
+        const penaltyBox = document.getElementById('penaltyBox');
+        penaltyBox.classList.add('show');
+        penaltyBox.innerHTML = `
+          <div class="penalty-text">✗ Wrong answer — drop and do <b>${penalty}</b> before you continue.</div>
+          <button class="btn btn-primary penalty-btn" id="penaltyDone">Done — Next Question</button>
+        `;
+        document.getElementById('penaltyDone').addEventListener('click', () => {
+          quizIndex++; renderQuiz();
+        });
       }
-      setTimeout(() => { quizIndex++; renderQuiz(); }, 900);
     });
   });
 }
@@ -1157,6 +1308,511 @@ document.getElementById('dietCalc').addEventListener('click', () => {
 
   document.getElementById('dietResult').classList.add('show');
 });
+
+/* ============ CAMERA FORM CHECK ============ */
+const CONF = 0.3;
+const camBackdrop = document.getElementById('camBackdrop');
+const camVideo = document.getElementById('camVideo');
+const camCanvas = document.getElementById('camCanvas');
+const camCtx = camCanvas.getContext('2d');
+const camLoading = document.getElementById('camLoading');
+const camFeedback = document.getElementById('camFeedback');
+const camRepsEl = document.getElementById('camReps');
+const camGoodEl = document.getElementById('camGood');
+const camNoteEl = document.getElementById('camNote');
+
+let poseLibsLoaded = false;
+let detector = null;
+let camStream = null;
+let camRunning = false;
+let camState = {};
+let currentConfig = null;
+
+function loadScript(src){
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+async function ensurePoseLibs(){
+  if (poseLibsLoaded) return;
+  await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0/dist/tf.min.js');
+  await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection@2.1.3/dist/pose-detection.min.js');
+  poseLibsLoaded = true;
+}
+
+async function ensureDetector(){
+  if (detector) return detector;
+  await ensurePoseLibs();
+  detector = await poseDetection.createDetector(
+    poseDetection.SupportedModels.MoveNet,
+    { modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING }
+  );
+  return detector;
+}
+
+/* ---- math helpers ---- */
+function angleDeg(A,B,C){
+  const AB = {x:A.x-B.x, y:A.y-B.y};
+  const CB = {x:C.x-B.x, y:C.y-B.y};
+  const magAB = Math.hypot(AB.x,AB.y);
+  const magCB = Math.hypot(CB.x,CB.y);
+  if (magAB===0 || magCB===0) return null;
+  let cos = (AB.x*CB.x + AB.y*CB.y)/(magAB*magCB);
+  cos = Math.max(-1, Math.min(1, cos));
+  return Math.acos(cos) * 180/Math.PI;
+}
+
+function buildKpMap(keypoints){
+  const map = {};
+  keypoints.forEach(k => { map[k.name] = k; });
+  return map;
+}
+
+function bestSide(kpMap, parts){
+  let ls=0, rs=0, lok=true, rok=true;
+  parts.forEach(p => {
+    const l = kpMap['left_'+p], r = kpMap['right_'+p];
+    if (!l || l.score < CONF) lok = false; else ls += l.score;
+    if (!r || r.score < CONF) rok = false; else rs += r.score;
+  });
+  if (lok && rok) return ls >= rs ? 'left' : 'right';
+  if (lok) return 'left';
+  if (rok) return 'right';
+  return null;
+}
+
+/* ---- per-exercise analyzers ----
+   Each returns { feedback, ok, repCounted, goodForm } and may mutate camState */
+
+function analyzeSquat(kpMap){
+  const side = bestSide(kpMap, ['hip','knee','ankle']);
+  if (!side) return { feedback:'Step back so your hips, knees, and ankles are all visible.', ok:false };
+  const hip = kpMap[side+'_hip'], knee = kpMap[side+'_knee'], ankle = kpMap[side+'_ankle'];
+  const angle = angleDeg(hip, knee, ankle);
+  if (angle === null) return { feedback:'Adjust your position so your leg is fully visible.', ok:false };
+
+  let feedback, repCounted=false, goodForm=false;
+  if (angle < 100){
+    camState.phase = 'down';
+    camState.minAngle = Math.min(camState.minAngle ?? 999, angle);
+    feedback = 'Good depth — now drive back up.';
+    goodForm = true;
+  } else if (camState.phase === 'down' && angle > 155){
+    if (camState.minAngle !== undefined && camState.minAngle < 110){
+      repCounted = true; goodForm = true;
+      feedback = 'Nice depth — rep counted.';
+    } else {
+      feedback = 'That squat was too shallow — go lower next time.';
+    }
+    camState.phase = 'up';
+    camState.minAngle = undefined;
+  } else if (angle >= 100 && angle <= 155){
+    feedback = 'Keep bending your knees further.';
+  } else {
+    feedback = 'Stand tall, then start your squat.';
+    goodForm = true;
+  }
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+function analyzeLunge(kpMap){
+  const side = bestSide(kpMap, ['hip','knee','ankle']);
+  if (!side) return { feedback:'Step back so your front leg is fully visible.', ok:false };
+  const hip = kpMap[side+'_hip'], knee = kpMap[side+'_knee'], ankle = kpMap[side+'_ankle'];
+  const angle = angleDeg(hip, knee, ankle);
+  if (angle === null) return { feedback:'Adjust your position so your leg is fully visible.', ok:false };
+
+  let feedback, repCounted=false, goodForm=false;
+  if (angle < 100){
+    camState.phase = 'down';
+    camState.minAngle = Math.min(camState.minAngle ?? 999, angle);
+    feedback = 'Good drop — keep that back knee close to the floor.';
+    goodForm = true;
+  } else if (camState.phase === 'down' && angle > 155){
+    if (camState.minAngle !== undefined && camState.minAngle < 110){
+      repCounted = true; goodForm = true;
+      feedback = 'Solid lunge — rep counted.';
+    } else {
+      feedback = 'Drop lower next time for a full lunge.';
+    }
+    camState.phase = 'up';
+    camState.minAngle = undefined;
+  } else if (angle >= 100 && angle <= 155){
+    feedback = 'Keep lowering your back knee.';
+  } else {
+    feedback = 'Stand tall, then step into your lunge.';
+    goodForm = true;
+  }
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+function analyzePushup(kpMap){
+  const side = bestSide(kpMap, ['shoulder','elbow','wrist']);
+  if (!side) return { feedback:'Get your shoulder, elbow, and wrist in view of the camera.', ok:false };
+  const shoulder = kpMap[side+'_shoulder'], elbow = kpMap[side+'_elbow'], wrist = kpMap[side+'_wrist'];
+  const elbowAngle = angleDeg(shoulder, elbow, wrist);
+  if (elbowAngle === null) return { feedback:'Adjust your position so your arm is fully visible.', ok:false };
+
+  let backNote = '';
+  const hip = kpMap[side+'_hip'], ankle = kpMap[side+'_ankle'];
+  if (hip && ankle){
+    const backAngle = angleDeg(shoulder, hip, ankle);
+    if (backAngle !== null && backAngle < 150) backNote = ' Keep your hips up — do not let your back sag.';
+  }
+
+  let feedback, repCounted=false, goodForm = backNote === '';
+  if (elbowAngle < 100){
+    camState.phase = 'down';
+    camState.minAngle = Math.min(camState.minAngle ?? 999, elbowAngle);
+    feedback = 'Good, now press back up.' + backNote;
+  } else if (camState.phase === 'down' && elbowAngle > 150){
+    if (camState.minAngle !== undefined && camState.minAngle < 100){
+      repCounted = true;
+      feedback = 'Full range rep counted.' + backNote;
+    } else {
+      feedback = 'Go lower next time for a full rep.' + backNote;
+    }
+    camState.phase = 'up';
+    camState.minAngle = undefined;
+  } else {
+    feedback = 'Lower your chest toward the floor.' + backNote;
+  }
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+function analyzeDip(kpMap){
+  const side = bestSide(kpMap, ['shoulder','elbow','wrist']);
+  if (!side) return { feedback:'Keep your shoulder, elbow, and wrist in the frame.', ok:false };
+  const shoulder = kpMap[side+'_shoulder'], elbow = kpMap[side+'_elbow'], wrist = kpMap[side+'_wrist'];
+  const elbowAngle = angleDeg(shoulder, elbow, wrist);
+  if (elbowAngle === null) return { feedback:'Adjust your position so your arm is fully visible.', ok:false };
+
+  let feedback, repCounted=false, goodForm=true;
+  if (elbowAngle < 100){
+    camState.phase = 'down';
+    camState.minAngle = Math.min(camState.minAngle ?? 999, elbowAngle);
+    feedback = 'Good depth — press back up without flaring your elbows.';
+  } else if (camState.phase === 'down' && elbowAngle > 150){
+    if (camState.minAngle !== undefined && camState.minAngle < 100){
+      repCounted = true;
+      feedback = 'Full range rep counted.';
+    } else {
+      goodForm = false;
+      feedback = 'Lower further next time to hit 90 degrees.';
+    }
+    camState.phase = 'up';
+    camState.minAngle = undefined;
+  } else {
+    feedback = 'Lower yourself until your elbows hit about 90 degrees.';
+  }
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+function analyzePullup(kpMap){
+  const side = bestSide(kpMap, ['shoulder','elbow','wrist']);
+  if (!side) return { feedback:'Keep your shoulder, elbow, and wrist in the frame.', ok:false };
+  const shoulder = kpMap[side+'_shoulder'], elbow = kpMap[side+'_elbow'], wrist = kpMap[side+'_wrist'];
+  const elbowAngle = angleDeg(shoulder, elbow, wrist);
+  if (elbowAngle === null) return { feedback:'Adjust your position so your arm is fully visible.', ok:false };
+
+  const nose = kpMap['nose'];
+  let chinNote = '';
+  if (nose && nose.score >= CONF && elbowAngle < 100){
+    if (nose.y > wrist.y) chinNote = ' Try to pull your chin above the bar.';
+  }
+
+  let feedback, repCounted=false, goodForm = chinNote === '';
+  if (elbowAngle < 100){
+    camState.phase = 'down';
+    camState.minAngle = Math.min(camState.minAngle ?? 999, elbowAngle);
+    feedback = 'Good pull — control the way back down.' + chinNote;
+  } else if (camState.phase === 'down' && elbowAngle > 150){
+    if (camState.minAngle !== undefined && camState.minAngle < 100){
+      repCounted = true;
+      feedback = 'Rep counted — nice pull.';
+    } else {
+      feedback = 'Pull higher next time.';
+    }
+    camState.phase = 'up';
+    camState.minAngle = undefined;
+  } else {
+    feedback = 'Hang with arms extended, then pull up.';
+  }
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+function analyzePlank(kpMap){
+  const side = bestSide(kpMap, ['shoulder','hip','ankle']);
+  if (!side) return { feedback:'Position your camera so your whole body is visible from the side.', ok:false };
+  const shoulder = kpMap[side+'_shoulder'], hip = kpMap[side+'_hip'], ankle = kpMap[side+'_ankle'];
+
+  const lineY = shoulder.y + (ankle.y - shoulder.y) * ((hip.x - shoulder.x) / ((ankle.x - shoulder.x) || 0.0001));
+  const diff = hip.y - lineY;
+
+  let feedback, goodForm;
+  if (diff > 0.03){
+    feedback = 'Raise your hips — do not let your back sag.';
+    goodForm = false;
+  } else if (diff < -0.03){
+    feedback = 'Lower your hips — keep a straight line from shoulders to heels.';
+    goodForm = false;
+  } else {
+    feedback = 'Great plank — hold that straight line.';
+    goodForm = true;
+  }
+
+  if (goodForm){
+    camState.holdStart = camState.holdStart || Date.now();
+    const secs = Math.floor((Date.now() - camState.holdStart)/1000);
+    feedback += ' (' + secs + 's held)';
+  } else {
+    camState.holdStart = null;
+  }
+
+  return { feedback, ok:true, repCounted:false, goodForm };
+}
+
+function analyzeBicycle(kpMap){
+  const lElbow = kpMap['left_elbow'], rElbow = kpMap['right_elbow'];
+  const lKnee = kpMap['left_knee'], rKnee = kpMap['right_knee'];
+  if (!lElbow || !rElbow || !lKnee || !rKnee ||
+      lElbow.score < CONF || rElbow.score < CONF || lKnee.score < CONF || rKnee.score < CONF){
+    return { feedback:'Lie so your elbows and knees are both visible in frame.', ok:false };
+  }
+  const distA = Math.hypot(lElbow.x-rKnee.x, lElbow.y-rKnee.y);
+  const distB = Math.hypot(rElbow.x-lKnee.x, rElbow.y-lKnee.y);
+  const closest = Math.min(distA, distB);
+
+  let feedback, repCounted=false, goodForm=false;
+  if (closest < 0.12){
+    goodForm = true;
+    if (camState.phase !== 'touched'){
+      repCounted = true;
+      feedback = 'Nice twist — elbow met the opposite knee.';
+    } else {
+      feedback = 'Hold, then switch to the other side.';
+    }
+    camState.phase = 'touched';
+  } else {
+    camState.phase = 'apart';
+    feedback = 'Bring your elbow to the opposite knee.';
+  }
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+function analyzeMotionAmplitude(kpMap){
+  // simplified whole-body cycle detector for burpees / mountain climbers
+  const hip = kpMap['left_hip'] && kpMap['left_hip'].score >= CONF ? kpMap['left_hip'] : kpMap['right_hip'];
+  if (!hip || hip.score < CONF) return { feedback:'Step back so your whole body is visible.', ok:false };
+
+  if (camState.baseline === undefined) camState.baseline = hip.y;
+  const delta = hip.y - camState.baseline;
+
+  let feedback, repCounted=false, goodForm=true;
+  if (delta > 0.10){
+    camState.phase = 'down';
+    feedback = 'Good — now explode back up.';
+  } else if (camState.phase === 'down' && delta < 0.04){
+    repCounted = true;
+    camState.phase = 'up';
+    feedback = 'Rep counted — keep the pace steady.';
+  } else {
+    feedback = 'Get your hips all the way down each rep.';
+  }
+  camState.baseline = Math.min(camState.baseline, hip.y);
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+function analyzeSuperman(kpMap){
+  const wrist = kpMap['left_wrist'] && kpMap['left_wrist'].score >= CONF ? kpMap['left_wrist'] : kpMap['right_wrist'];
+  const shoulder = kpMap['left_shoulder'] && kpMap['left_shoulder'].score >= CONF ? kpMap['left_shoulder'] : kpMap['right_shoulder'];
+  if (!wrist || !shoulder) return { feedback:'Camera cannot see your arms clearly — reposition to the side.', ok:false };
+
+  if (camState.baseline === undefined) camState.baseline = wrist.y;
+  const lift = camState.baseline - wrist.y;
+
+  let feedback, repCounted=false, goodForm=false;
+  if (lift > 0.05){
+    goodForm = true;
+    if (camState.phase !== 'lifted'){
+      repCounted = true;
+      feedback = 'Good lift — squeeze your back.';
+    } else {
+      feedback = 'Hold the lift, then lower with control.';
+    }
+    camState.phase = 'lifted';
+  } else {
+    camState.phase = 'down';
+    feedback = 'Lift your arms and legs together off the floor.';
+  }
+  return { feedback, ok:true, repCounted, goodForm };
+}
+
+const ANALYZERS = {
+  'Bodyweight Squat': analyzeSquat,
+  'Lunges': analyzeLunge,
+  'Push-Up': analyzePushup,
+  'Dips': analyzeDip,
+  'Pull-Up': analyzePullup,
+  'Plank': analyzePlank,
+  'Bicycle Crunch': analyzeBicycle,
+  'Burpees': analyzeMotionAmplitude,
+  'Mountain Climbers': analyzeMotionAmplitude,
+  'Superman': analyzeSuperman,
+};
+
+const CAM_NOTES = {
+  'Push-Up': 'For best accuracy, angle your camera low and to the side so your whole body is visible.',
+  'Plank': 'For best accuracy, angle your camera low and to the side so your whole body is visible.',
+  'Dips': 'This checks your arm bend only — keep your upper body in frame.',
+  'Pull-Up': 'This checks your arm bend only — a full form check needs a side view showing the bar.',
+  'Bicycle Crunch': 'Best tracked lying down with the camera positioned above or to the side.',
+  'Burpees': 'Fast, multi-step movements are harder to track precisely — treat this as a rough guide.',
+  'Mountain Climbers': 'Fast floor movements are harder to track precisely — treat this as a rough guide.',
+  'Superman': 'This is the hardest exercise to track from a front-facing camera — place your camera at floor level, to the side, for best results.',
+};
+
+const SKELETON_EDGES = [
+  ['left_shoulder','right_shoulder'],['left_shoulder','left_elbow'],['left_elbow','left_wrist'],
+  ['right_shoulder','right_elbow'],['right_elbow','right_wrist'],
+  ['left_shoulder','left_hip'],['right_shoulder','right_hip'],['left_hip','right_hip'],
+  ['left_hip','left_knee'],['left_knee','left_ankle'],['right_hip','right_knee'],['right_knee','right_ankle'],
+];
+
+let camLoopId = null;
+let camReps = 0;
+let camGood = 0;
+
+function drawSkeleton(kpMap, w, h){
+  camCtx.clearRect(0,0,w,h);
+  camCtx.strokeStyle = '#E8262B';
+  camCtx.lineWidth = 3;
+  camCtx.fillStyle = '#FFFFFF';
+
+  SKELETON_EDGES.forEach(([a,b]) => {
+    const pa = kpMap[a], pb = kpMap[b];
+    if (pa && pb && pa.score >= CONF && pb.score >= CONF){
+      camCtx.beginPath();
+      camCtx.moveTo(pa.x*w, pa.y*h);
+      camCtx.lineTo(pb.x*w, pb.y*h);
+      camCtx.stroke();
+    }
+  });
+  Object.values(kpMap).forEach(k => {
+    if (k.score >= CONF){
+      camCtx.beginPath();
+      camCtx.arc(k.x*w, k.y*h, 4, 0, Math.PI*2);
+      camCtx.fill();
+    }
+  });
+}
+
+async function camLoop(){
+  if (!camRunning) return;
+  try {
+    const poses = await detector.estimatePoses(camVideo);
+    if (poses && poses.length){
+      const w = camCanvas.width, h = camCanvas.height;
+      const kpMap = {};
+      poses[0].keypoints.forEach(k => {
+        kpMap[k.name] = { x: k.x / camVideo.videoWidth, y: k.y / camVideo.videoHeight, score: k.score };
+      });
+      drawSkeleton(kpMap, w, h);
+
+      const analyzer = ANALYZERS[currentConfig.name] || (() => ({ feedback:'Tracking not available for this exercise.', ok:false }));
+      const result = analyzer(kpMap);
+
+      camFeedback.textContent = result.feedback;
+      camFeedback.classList.remove('good','warn');
+      if (result.ok){
+        camFeedback.classList.add(result.goodForm ? 'good' : 'warn');
+      }
+      if (result.repCounted){
+        camReps++;
+        camRepsEl.textContent = camReps;
+      }
+      if (result.goodForm){
+        camGood++;
+        camGoodEl.textContent = camGood;
+      }
+    } else {
+      camCtx.clearRect(0,0,camCanvas.width, camCanvas.height);
+      camFeedback.textContent = 'No person detected — step into frame.';
+      camFeedback.classList.remove('good','warn');
+    }
+  } catch(err){
+    console.error('Pose detection error', err);
+  }
+  camLoopId = requestAnimationFrame(camLoop);
+}
+
+async function openCameraCheck(ex){
+  currentConfig = ex;
+  camState = {};
+  camReps = 0;
+  camGood = 0;
+  camRepsEl.textContent = '0';
+  camGoodEl.textContent = '0';
+  document.getElementById('camName').textContent = ex.name;
+  document.getElementById('camMuscle').textContent = ex.muscle;
+  camFeedback.textContent = 'Position yourself in frame to begin.';
+  camFeedback.classList.remove('good','warn');
+
+  const note = CAM_NOTES[ex.name];
+  if (note){
+    camNoteEl.textContent = note;
+    camNoteEl.classList.add('show');
+  } else {
+    camNoteEl.classList.remove('show');
+  }
+
+  camBackdrop.classList.add('show');
+  camLoading.classList.remove('hide');
+  camLoading.textContent = 'Starting camera…';
+
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+  } catch (err){
+    camLoading.textContent = 'Camera access denied or unavailable. Check your browser permissions.';
+    return;
+  }
+  camVideo.srcObject = camStream;
+
+  await new Promise(resolve => { camVideo.onloadedmetadata = resolve; });
+  camVideo.play();
+  camCanvas.width = camVideo.videoWidth;
+  camCanvas.height = camVideo.videoHeight;
+
+  camLoading.textContent = 'Loading form-check model…';
+  try {
+    await ensureDetector();
+  } catch (err){
+    camLoading.textContent = 'Could not load the tracking model. Check your internet connection.';
+    return;
+  }
+
+  camLoading.classList.add('hide');
+  camRunning = true;
+  camLoop();
+}
+
+function closeCameraCheck(){
+  camRunning = false;
+  if (camLoopId) cancelAnimationFrame(camLoopId);
+  if (camStream){
+    camStream.getTracks().forEach(t => t.stop());
+    camStream = null;
+  }
+  camVideo.srcObject = null;
+  camBackdrop.classList.remove('show');
+}
+
+document.getElementById('camClose').addEventListener('click', closeCameraCheck);
 </script>
 </body>
 </html>
