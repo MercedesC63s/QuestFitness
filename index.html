@@ -641,9 +641,284 @@
     .game-grid{grid-template-columns:1fr;}
     .nav-links{display:none;}
   }
+
+  /* =========================================================
+     GET-STARTED GATE
+  ========================================================= */
+  @keyframes gateGlow{
+    0%,100%{ opacity:0.55; transform:scale(1); }
+    50%{ opacity:1; transform:scale(1.05); }
+  }
+  @keyframes floatUp{
+    0%{ opacity:0; transform:translateY(18px); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+  .gate-screen{
+    position:fixed; inset:0; z-index:300;
+    background:radial-gradient(circle at 50% 20%, #1a1010 0%, #0A0A0A 65%);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column; text-align:center; padding:32px;
+  }
+  .gate-screen.hide{display:none;}
+  .gate-orb{
+    position:absolute; top:12%; left:50%; transform:translateX(-50%);
+    width:340px; height:340px; border-radius:50%;
+    background:radial-gradient(circle, var(--lime-dim) 0%, transparent 70%);
+    animation:gateGlow 3.4s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .gate-eyebrow{
+    font-family:var(--mono); font-size:12px; color:var(--lime);
+    letter-spacing:0.16em; text-transform:uppercase; margin-bottom:18px;
+    animation:floatUp .6s ease both;
+  }
+  .gate-screen h1{
+    font-size:clamp(40px,7vw,84px); line-height:0.95; z-index:1;
+    animation:floatUp .6s ease .05s both;
+  }
+  .gate-screen h1 em{font-style:normal; color:var(--lime);}
+  .gate-screen p{
+    color:var(--ink-dim); max-width:44ch; margin-top:18px; font-size:16px; z-index:1;
+    animation:floatUp .6s ease .12s both;
+  }
+  .gate-cta{
+    margin-top:34px; z-index:1;
+    animation:floatUp .6s ease .2s both;
+  }
+  .gate-cta .btn-primary{
+    font-size:16px; padding:18px 34px;
+    box-shadow:0 0 0 0 var(--lime-dim);
+    animation: pulseRing 2.2s ease-in-out infinite;
+  }
+  @keyframes pulseRing{
+    0%{ box-shadow:0 0 0 0 rgba(232,38,43,0.45); }
+    70%{ box-shadow:0 0 0 16px rgba(232,38,43,0); }
+    100%{ box-shadow:0 0 0 0 rgba(232,38,43,0); }
+  }
+  .gate-fine{margin-top:16px; color:var(--ink-dim); font-family:var(--mono); font-size:11px; z-index:1; animation:floatUp .6s ease .28s both;}
+
+  /* =========================================================
+     PAYWALL
+  ========================================================= */
+  .paywall-backdrop{
+    position:fixed; inset:0; z-index:250; background:rgba(6,6,6,0.86);
+    backdrop-filter:blur(6px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .paywall-backdrop.show{display:flex;}
+  @keyframes modalPop{
+    0%{ opacity:0; transform:scale(0.92) translateY(12px); }
+    100%{ opacity:1; transform:scale(1) translateY(0); }
+  }
+  .paywall-card{
+    background:linear-gradient(180deg, var(--card-hi) 0%, var(--card) 100%);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:38px;
+    width:100%; max-width:420px;
+    text-align:center;
+    animation:modalPop .32s cubic-bezier(.2,.9,.3,1.2) both;
+    position:relative;
+    overflow:hidden;
+  }
+  .paywall-card::before{
+    content:''; position:absolute; top:-60px; left:-60px; width:180px; height:180px;
+    background:radial-gradient(circle, var(--lime-dim), transparent 70%);
+    pointer-events:none;
+  }
+  .paywall-badge{
+    font-family:var(--mono); font-size:11px; color:var(--lime);
+    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:10px;
+  }
+  .paywall-card h3{font-size:32px; margin-bottom:6px;}
+  .paywall-price{
+    font-family:var(--display); font-size:56px; color:var(--lime);
+    margin:14px 0 2px;
+  }
+  .paywall-price span{font-family:var(--mono); font-size:14px; color:var(--ink-dim); text-transform:none; letter-spacing:0;}
+  .paywall-sub{color:var(--ink-dim); font-size:13px; margin-bottom:22px;}
+  .paywall-features{
+    list-style:none; margin:0 0 26px; padding:0;
+    text-align:left; display:flex; flex-direction:column; gap:11px;
+  }
+  .paywall-features li{
+    display:flex; align-items:center; gap:10px; font-size:14px;
+    opacity:0; animation:floatUp .45s ease forwards;
+  }
+  .paywall-features li:nth-child(1){animation-delay:.05s;}
+  .paywall-features li:nth-child(2){animation-delay:.12s;}
+  .paywall-features li:nth-child(3){animation-delay:.19s;}
+  .paywall-features li:nth-child(4){animation-delay:.26s;}
+  .paywall-features li:nth-child(5){animation-delay:.33s;}
+  .paywall-features li b{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; border-radius:50%; background:var(--lime-dim); color:var(--lime);
+    font-size:12px; flex-shrink:0;
+  }
+  .paywall-subscribe{
+    width:100%; padding:18px; font-family:var(--display); font-size:20px;
+    letter-spacing:0.03em; background:var(--lime); color:#0A0A0A; border:none;
+    border-radius:14px; cursor:pointer; transition:transform .1s ease, background .15s ease;
+    position:relative; overflow:hidden;
+  }
+  .paywall-subscribe:active{transform:scale(0.97);}
+  .paywall-subscribe:hover{background:#ff4d4f;}
+  .paywall-subscribe.processing{pointer-events:none; opacity:0.8;}
+  .paywall-note{margin-top:14px; color:var(--ink-dim); font-size:11.5px; font-family:var(--mono);}
+  .paywall-close{
+    position:absolute; top:16px; right:18px; background:none; border:none;
+    color:var(--ink-dim); font-size:20px; cursor:pointer; line-height:1;
+  }
+  .paywall-close:hover{color:var(--ink);}
+
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .spin-dot{
+    display:inline-block; width:16px; height:16px; border-radius:50%;
+    border:2px solid rgba(10,10,10,0.35); border-top-color:#0A0A0A;
+    animation:spin .6s linear infinite; vertical-align:-3px; margin-right:8px;
+  }
+
+  /* confetti */
+  .confetti-piece{
+    position:fixed; top:-10px; width:8px; height:14px; z-index:400;
+    pointer-events:none; opacity:0.95;
+  }
+  @keyframes confettiFall{
+    to{ transform:translateY(105vh) rotate(540deg); opacity:0; }
+  }
+
+  /* =========================================================
+     GATED SECTIONS (lock overlay)
+  ========================================================= */
+  .gated{position:relative;}
+  .gated .wrap{transition:filter .25s ease;}
+  .gated.is-locked .wrap{
+    filter:blur(7px) brightness(0.6);
+    pointer-events:none;
+    user-select:none;
+  }
+  .lock-overlay{
+    position:absolute; inset:0; z-index:15;
+    display:none;
+    align-items:center; justify-content:center;
+    flex-direction:column; text-align:center;
+    padding:24px;
+  }
+  .gated.is-locked .lock-overlay{display:flex;}
+  .lock-badge{
+    width:56px; height:56px; border-radius:50%;
+    background:var(--card-hi); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; margin-bottom:16px;
+    animation:floatUp .5s ease both;
+  }
+  .lock-overlay h3{font-size:24px; margin-bottom:8px; animation:floatUp .5s ease .05s both;}
+  .lock-overlay p{color:var(--ink-dim); font-size:13.5px; max-width:32ch; margin-bottom:20px; animation:floatUp .5s ease .1s both;}
+  .lock-overlay .btn{animation:floatUp .5s ease .16s both;}
+
+  /* scroll reveal */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  /* =========================================================
+     FOOD SCANNER
+  ========================================================= */
+  .scan-grid{
+    display:grid; grid-template-columns:0.95fr 1.05fr; gap:24px; align-items:start;
+  }
+  .scan-stage-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:24px;
+  }
+  .scan-stage{
+    position:relative; width:100%; aspect-ratio:4/3; background:#000;
+    border-radius:12px; overflow:hidden; border:1px solid var(--line);
+  }
+  .scan-stage video, .scan-stage canvas{
+    position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
+  }
+  .scan-frame{
+    position:absolute; inset:14%; border:2px solid var(--lime); border-radius:14px;
+    box-shadow:0 0 0 999px rgba(0,0,0,0.35);
+    pointer-events:none;
+  }
+  .scan-line{
+    position:absolute; left:14%; right:14%; top:14%; height:2px;
+    background:var(--lime); box-shadow:0 0 10px var(--lime);
+    animation:scanMove 2.2s ease-in-out infinite;
+  }
+  @keyframes scanMove{
+    0%{ top:14%; } 50%{ top:86%; } 100%{ top:14%; }
+  }
+  .scan-actions{display:flex; gap:10px; margin-top:16px;}
+  .scan-manual{margin-top:18px;}
+  .scan-manual label{
+    display:block; font-family:var(--mono); font-size:11px; color:var(--ink-dim);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;
+  }
+  .scan-manual-row{display:flex; gap:8px;}
+  .scan-manual-row input{
+    flex:1; background:var(--bg-soft); border:1px solid var(--line); color:var(--ink);
+    padding:11px 12px; border-radius:8px; font-size:14px;
+  }
+  .scan-result-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; min-height:340px;
+  }
+  .scan-empty{color:var(--ink-dim); font-size:14px; text-align:center; padding:60px 20px;}
+  .scan-food-name{font-family:var(--display); font-size:30px; margin-bottom:4px;}
+  .scan-food-brand{color:var(--ink-dim); font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:20px;}
+  .scan-stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px;}
+  .scan-stat{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:10px;
+    padding:14px 10px; text-align:center;
+    animation:floatUp .4s ease both;
+  }
+  .scan-stat b{display:block; font-family:var(--display); font-size:26px; color:var(--lime);}
+  .scan-stat span{font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.06em;}
+  .scan-log-title{font-family:var(--mono); font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.08em; margin:22px 0 10px; border-top:1px solid var(--line); padding-top:18px;}
+  .scan-log-item{display:flex; justify-content:space-between; font-size:13px; padding:8px 0; border-bottom:1px solid var(--line);}
+  .scan-log-item:last-child{border-bottom:none;}
+  .scan-source-note{margin-top:16px; color:var(--ink-dim); font-size:11.5px; font-family:var(--mono);}
+
+  @media (max-width: 860px){
+    .scan-grid{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
+
+<!-- ================= GET STARTED GATE ================= -->
+<div class="gate-screen" id="gateScreen">
+  <div class="gate-orb"></div>
+  <div class="gate-eyebrow">// no equipment. no excuses.</div>
+  <h1>Quest<em>Fitness</em></h1>
+  <p>Bodyweight training, an AI form-check camera, a food &amp; protein scanner, and daily challenges — everything you need in one place.</p>
+  <div class="gate-cta">
+    <button class="btn btn-primary" id="gateStartBtn">Get Started →</button>
+  </div>
+  <div class="gate-fine">Free to browse · Pro unlocks everything</div>
+</div>
+
+<!-- ================= PAYWALL ================= -->
+<div class="paywall-backdrop" id="paywallBackdrop">
+  <div class="paywall-card">
+    <button class="paywall-close" id="paywallClose" aria-label="Close">×</button>
+    <div class="paywall-badge">Quest Fitness Pro</div>
+    <h3>Unlock everything</h3>
+    <div class="paywall-price">$10<span>/month</span></div>
+    <div class="paywall-sub">Cancel anytime. Full access starts instantly.</div>
+    <ul class="paywall-features">
+      <li><b>✓</b> Full bodyweight exercise library &amp; timers</li>
+      <li><b>✓</b> AI camera form-check on every move</li>
+      <li><b>✓</b> Form IQ quiz with unlimited retries</li>
+      <li><b>✓</b> Reaction &amp; memory recovery games</li>
+      <li><b>✓</b> AI food &amp; barcode scanner + diet planner</li>
+    </ul>
+    <button class="paywall-subscribe" id="paywallSubscribe">Subscribe — $10/mo</button>
+    <div class="paywall-note" id="paywallNote">Demo checkout — no real payment is processed here.</div>
+  </div>
+</div>
 
 <nav>
   <div class="nav-inner">
@@ -652,6 +927,7 @@
       <li><a href="#exercises">Exercises</a></li>
       <li><a href="#quiz">Quiz</a></li>
       <li><a href="#games">Games</a></li>
+      <li><a href="#scanner">Scanner</a></li>
       <li><a href="#diet">Diet</a></li>
     </ul>
   </div>
@@ -662,7 +938,7 @@
     <div>
       <div class="eyebrow">// no equipment. no excuses.</div>
       <h1>Train your<br><em>whole self.</em></h1>
-      <p>A library of bodyweight exercises, a quiz that tests your form knowledge, quick reflex games for your downtime, and a diet calculator to fuel it all — all in one page.</p>
+      <p>A library of bodyweight exercises, a quiz that tests your form knowledge, quick reflex games for your downtime, an AI food scanner, and a diet calculator to fuel it all — all in one page.</p>
       <div class="hero-ctas">
         <a href="#exercises" class="btn btn-primary">Start Training →</a>
         <a href="#diet" class="btn btn-ghost">Plan My Diet</a>
@@ -681,9 +957,15 @@
 </header>
 
 <!-- ================= EXERCISES ================= -->
-<section id="exercises">
+<section id="exercises" class="gated" data-gate="exercises">
+  <div class="lock-overlay">
+    <div class="lock-badge">🔒</div>
+    <h3>Pro feature</h3>
+    <p>The full exercise library and guided timers are part of Quest Fitness Pro.</p>
+    <button class="btn btn-primary paywall-trigger">Unlock for $10/mo</button>
+  </div>
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <div>
         <div class="sec-tag">01 / Library</div>
         <h2>Pick your exercise</h2>
@@ -751,9 +1033,15 @@
 </div>
 
 <!-- ================= QUIZ ================= -->
-<section id="quiz" class="alt">
+<section id="quiz" class="alt gated" data-gate="quiz">
+  <div class="lock-overlay">
+    <div class="lock-badge">🔒</div>
+    <h3>Pro feature</h3>
+    <p>The Form IQ quiz is part of Quest Fitness Pro.</p>
+    <button class="btn btn-primary paywall-trigger">Unlock for $10/mo</button>
+  </div>
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <div>
         <div class="sec-tag">02 / Knowledge</div>
         <h2>Test your form IQ</h2>
@@ -766,9 +1054,15 @@
 </section>
 
 <!-- ================= GAMES ================= -->
-<section id="games">
+<section id="games" class="gated" data-gate="games">
+  <div class="lock-overlay">
+    <div class="lock-badge">🔒</div>
+    <h3>Pro feature</h3>
+    <p>Recovery-day mini games are part of Quest Fitness Pro.</p>
+    <button class="btn btn-primary paywall-trigger">Unlock for $10/mo</button>
+  </div>
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <div>
         <div class="sec-tag">03 / Recovery</div>
         <h2>Mini games</h2>
@@ -804,12 +1098,65 @@
   </div>
 </section>
 
-<!-- ================= DIET ================= -->
-<section id="diet" class="alt">
+<!-- ================= FOOD SCANNER ================= -->
+<section id="scanner" class="alt gated" data-gate="scanner">
+  <div class="lock-overlay">
+    <div class="lock-badge">🔒</div>
+    <h3>Pro feature</h3>
+    <p>The AI food &amp; barcode scanner is part of Quest Fitness Pro.</p>
+    <button class="btn btn-primary paywall-trigger">Unlock for $10/mo</button>
+  </div>
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <div>
-        <div class="sec-tag">04 / Fuel</div>
+        <div class="sec-tag">04 / Scanner</div>
+        <h2>Food &amp; protein scanner</h2>
+      </div>
+      <p class="sec-desc">Scan a barcode or search a food to see calories, protein, carbs &amp; fat instantly.</p>
+    </div>
+
+    <div class="scan-grid">
+      <div class="scan-stage-card reveal">
+        <div class="scan-stage">
+          <video id="scanVideo" autoplay playsinline muted></video>
+          <canvas id="scanCanvas" style="display:none;"></canvas>
+          <div class="scan-frame" id="scanFrame" style="display:none;"></div>
+          <div class="scan-line" id="scanLine" style="display:none;"></div>
+          <div class="cam-loading" id="scanLoading">Camera is off</div>
+        </div>
+        <div class="scan-actions">
+          <button class="btn btn-primary" id="scanStartBtn" style="flex:1; justify-content:center;">Start Scanner</button>
+          <button class="btn btn-ghost" id="scanStopBtn" style="flex:1; justify-content:center; display:none;">Stop</button>
+        </div>
+        <div class="scan-manual">
+          <label>Or search a food by name</label>
+          <div class="scan-manual-row">
+            <input type="text" id="scanSearchInput" placeholder="e.g. banana, chicken breast, oats">
+            <button class="btn btn-ghost" id="scanSearchBtn">Search</button>
+          </div>
+        </div>
+        <div class="scan-source-note">Barcode scanning uses your browser's built-in detector where supported, plus the free Open Food Facts database. Text search falls back to a built-in food table when offline or unsupported.</div>
+      </div>
+
+      <div class="scan-result-card reveal" id="scanResultCard">
+        <div class="scan-empty" id="scanEmpty">Scan a barcode or search a food to see its nutrition breakdown here.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIET ================= -->
+<section id="diet" class="alt gated" data-gate="diet">
+  <div class="lock-overlay">
+    <div class="lock-badge">🔒</div>
+    <h3>Pro feature</h3>
+    <p>The calorie &amp; macro planner is part of Quest Fitness Pro.</p>
+    <button class="btn btn-primary paywall-trigger">Unlock for $10/mo</button>
+  </div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="sec-tag">05 / Fuel</div>
         <h2>Diet & calories</h2>
       </div>
       <p class="sec-desc">Estimate your daily calorie target and macro split, then browse sample meals.</p>
@@ -1813,6 +2160,297 @@ function closeCameraCheck(){
 }
 
 document.getElementById('camClose').addEventListener('click', closeCameraCheck);
+
+/* ============================================================
+   GET STARTED GATE + PAYWALL + SUBSCRIPTION GATING
+   ------------------------------------------------------------
+   NOTE FOR THE DEVELOPER: this is a UI-only demo of a paywall.
+   isSubscribed lives in a plain JS variable, so anyone can open
+   devtools and flip it — it does NOT actually stop access or
+   charge anyone. Before shipping, this needs a real payment
+   processor + a server that is the source of truth for
+   subscription status. See the chat response for the checklist.
+============================================================ */
+let isSubscribed = false;
+
+const gateScreen = document.getElementById('gateScreen');
+const gateStartBtn = document.getElementById('gateStartBtn');
+const paywallBackdrop = document.getElementById('paywallBackdrop');
+const paywallSubscribeBtn = document.getElementById('paywallSubscribe');
+const paywallCloseBtn = document.getElementById('paywallClose');
+const paywallNote = document.getElementById('paywallNote');
+const gatedSections = document.querySelectorAll('.gated');
+
+function openPaywall(){
+  paywallBackdrop.classList.add('show');
+}
+function closePaywall(){
+  paywallBackdrop.classList.remove('show');
+}
+function applyLockState(){
+  gatedSections.forEach(sec => {
+    if (isSubscribed) sec.classList.remove('is-locked');
+    else sec.classList.add('is-locked');
+  });
+}
+function fireConfetti(){
+  const colors = ['#E8262B', '#FFFFFF', '#9A9A9A'];
+  for (let i = 0; i < 40; i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100 + 'vw';
+    piece.style.background = colors[i % colors.length];
+    piece.style.animation = `confettiFall ${1.6 + Math.random()*1.2}s ease-in forwards`;
+    piece.style.animationDelay = (Math.random()*0.4) + 's';
+    piece.style.transform = `rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 3200);
+  }
+}
+
+gateStartBtn.addEventListener('click', () => {
+  gateScreen.classList.add('hide');
+  if (!isSubscribed) openPaywall();
+});
+
+paywallCloseBtn.addEventListener('click', closePaywall);
+paywallBackdrop.addEventListener('click', (e) => {
+  if (e.target === paywallBackdrop) closePaywall();
+});
+
+paywallSubscribeBtn.addEventListener('click', () => {
+  paywallSubscribeBtn.classList.add('processing');
+  paywallSubscribeBtn.innerHTML = '<span class="spin-dot"></span>Processing…';
+  paywallNote.textContent = 'Demo checkout — no real payment is processed here.';
+  setTimeout(() => {
+    isSubscribed = true;
+    applyLockState();
+    closePaywall();
+    fireConfetti();
+    paywallSubscribeBtn.classList.remove('processing');
+    paywallSubscribeBtn.textContent = 'Subscribe — $10/mo';
+  }, 1100);
+});
+
+document.addEventListener('click', (ev) => {
+  if (ev.target.matches('.paywall-trigger')) openPaywall();
+});
+
+// Nav links: if the target section is locked, open the paywall instead of just scrolling to a blurred section.
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', (ev) => {
+    const id = link.getAttribute('href').replace('#','');
+    const sec = document.getElementById(id);
+    if (sec && sec.classList.contains('gated') && !isSubscribed){
+      ev.preventDefault();
+      openPaywall();
+    }
+  });
+});
+
+applyLockState();
+
+/* ---- scroll reveal ---- */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============================================================
+   FOOD & BARCODE SCANNER
+   ------------------------------------------------------------
+   Uses the browser's native BarcodeDetector API where available,
+   plus the free public Open Food Facts API (no key required) to
+   look up a scanned product. If either is unsupported, or the
+   network call fails (e.g. sandboxed preview environments often
+   block outside network calls), it falls back to a small local
+   food table for text search so the feature still works.
+============================================================ */
+const LOCAL_FOOD_DB = [
+  {name:'Banana', brand:'Generic · 1 medium (118g)', cal:105, protein:1.3, carbs:27, fat:0.4},
+  {name:'Chicken Breast', brand:'Cooked · 100g', cal:165, protein:31, carbs:0, fat:3.6},
+  {name:'Rolled Oats', brand:'Dry · 100g', cal:389, protein:16.9, carbs:66.3, fat:6.9},
+  {name:'Greek Yogurt', brand:'Plain, nonfat · 100g', cal:59, protein:10, carbs:3.6, fat:0.4},
+  {name:'Whole Egg', brand:'1 large (50g)', cal:72, protein:6.3, carbs:0.4, fat:4.8},
+  {name:'Brown Rice', brand:'Cooked · 100g', cal:112, protein:2.6, carbs:23.5, fat:0.9},
+  {name:'Salmon', brand:'Cooked · 100g', cal:206, protein:22.1, carbs:0, fat:12.4},
+  {name:'Almonds', brand:'Raw · 28g (1oz)', cal:164, protein:6, carbs:6.1, fat:14.2},
+  {name:'Sweet Potato', brand:'Baked · 100g', cal:90, protein:2, carbs:20.7, fat:0.2},
+  {name:'Broccoli', brand:'Steamed · 100g', cal:35, protein:2.4, carbs:7.2, fat:0.4},
+  {name:'Peanut Butter', brand:'2 tbsp (32g)', cal:188, protein:8, carbs:6.9, fat:16},
+  {name:'Whey Protein', brand:'1 scoop (30g)', cal:120, protein:24, carbs:3, fat:1.5},
+  {name:'Avocado', brand:'1/2 medium (68g)', cal:114, protein:1.3, carbs:6, fat:10.5},
+  {name:'Cottage Cheese', brand:'Low-fat · 100g', cal:72, protein:12.4, carbs:2.7, fat:1},
+  {name:'Whole Wheat Bread', brand:'1 slice (32g)', cal:81, protein:4, carbs:13.8, fat:1.1},
+];
+
+const scanVideo = document.getElementById('scanVideo');
+const scanCanvas = document.getElementById('scanCanvas');
+const scanFrame = document.getElementById('scanFrame');
+const scanLine = document.getElementById('scanLine');
+const scanLoading = document.getElementById('scanLoading');
+const scanStartBtn = document.getElementById('scanStartBtn');
+const scanStopBtn = document.getElementById('scanStopBtn');
+const scanSearchInput = document.getElementById('scanSearchInput');
+const scanSearchBtn = document.getElementById('scanSearchBtn');
+const scanResultCard = document.getElementById('scanResultCard');
+
+let scanStream = null;
+let scanRunning = false;
+let scanLoopId = null;
+let barcodeDetector = null;
+const scanLog = [];
+
+function renderFoodResult(food, sourceLabel){
+  scanLog.unshift({ name: food.name, cal: food.cal });
+  if (scanLog.length > 5) scanLog.pop();
+
+  scanResultCard.innerHTML = `
+    <div class="scan-food-name reveal in-view">${food.name}</div>
+    <div class="scan-food-brand reveal in-view">${food.brand || ''}</div>
+    <div class="scan-stat-grid">
+      <div class="scan-stat" style="animation-delay:.02s"><b>${Math.round(food.cal)}</b><span>kcal</span></div>
+      <div class="scan-stat" style="animation-delay:.08s"><b>${Math.round(food.protein)}g</b><span>protein</span></div>
+      <div class="scan-stat" style="animation-delay:.14s"><b>${Math.round(food.carbs)}g</b><span>carbs</span></div>
+    </div>
+    <div class="scan-stat-grid" style="grid-template-columns:1fr;">
+      <div class="scan-stat" style="animation-delay:.2s"><b>${Math.round(food.fat)}g</b><span>fat</span></div>
+    </div>
+    <div class="scan-log-title">Recently scanned</div>
+    ${scanLog.map(l => `<div class="scan-log-item"><span>${l.name}</span><span>${Math.round(l.cal)} kcal</span></div>`).join('')}
+    <div class="scan-source-note">Source: ${sourceLabel}</div>
+  `;
+}
+
+async function lookupBarcode(code){
+  try {
+    const resp = await fetch(`https://world.openfoodfacts.org/api/v2/product/${code}.json`);
+    const data = await resp.json();
+    if (data && data.product){
+      const p = data.product;
+      const n = p.nutriments || {};
+      renderFoodResult({
+        name: p.product_name || 'Unknown product',
+        brand: p.brands || '',
+        cal: n['energy-kcal_100g'] ?? n['energy-kcal_serving'] ?? 0,
+        protein: n['proteins_100g'] ?? n['proteins_serving'] ?? 0,
+        carbs: n['carbohydrates_100g'] ?? n['carbohydrates_serving'] ?? 0,
+        fat: n['fat_100g'] ?? n['fat_serving'] ?? 0,
+      }, 'Open Food Facts (values per 100g)');
+      return true;
+    }
+  } catch(err){
+    console.warn('Open Food Facts lookup failed, falling back to local table', err);
+  }
+  return false;
+}
+
+function searchLocalFood(query){
+  const q = query.trim().toLowerCase();
+  if (!q) return null;
+  return LOCAL_FOOD_DB.find(f => f.name.toLowerCase().includes(q)) || null;
+}
+
+scanSearchBtn.addEventListener('click', async () => {
+  const query = scanSearchInput.value;
+  if (!query.trim()) return;
+  scanResultCard.innerHTML = '<div class="scan-empty">Searching…</div>';
+  const local = searchLocalFood(query);
+  if (local){
+    renderFoodResult(local, 'built-in food table');
+  } else {
+    scanResultCard.innerHTML = `<div class="scan-empty">No match for "${query}" — try a simpler term like "banana" or "chicken".</div>`;
+  }
+});
+scanSearchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') scanSearchBtn.click();
+});
+
+async function startScanner(){
+  scanStartBtn.style.display = 'none';
+  scanStopBtn.style.display = '';
+  scanLoading.classList.remove('hide');
+  scanLoading.textContent = 'Starting camera…';
+  try {
+    scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+  } catch(err){
+    scanLoading.textContent = 'Camera access denied or unavailable.';
+    scanStartBtn.style.display = '';
+    scanStopBtn.style.display = 'none';
+    return;
+  }
+  scanVideo.srcObject = scanStream;
+  await new Promise(resolve => { scanVideo.onloadedmetadata = resolve; });
+  scanVideo.play();
+  scanLoading.classList.add('hide');
+  scanFrame.style.display = 'block';
+  scanLine.style.display = 'block';
+  scanRunning = true;
+
+  if ('BarcodeDetector' in window){
+    try {
+      barcodeDetector = new BarcodeDetector({ formats: ['ean_13','ean_8','upc_a','upc_e','code_128'] });
+    } catch(err){
+      barcodeDetector = null;
+    }
+  }
+
+  scanCanvas.width = scanVideo.videoWidth;
+  scanCanvas.height = scanVideo.videoHeight;
+  scanLoop();
+}
+
+async function scanLoop(){
+  if (!scanRunning) return;
+  if (barcodeDetector){
+    try {
+      const codes = await barcodeDetector.detect(scanVideo);
+      if (codes && codes.length){
+        const code = codes[0].rawValue;
+        scanResultCard.innerHTML = `<div class="scan-empty">Barcode ${code} found — looking it up…</div>`;
+        const found = await lookupBarcode(code);
+        if (!found){
+          scanResultCard.innerHTML = `<div class="scan-empty">No product data found for barcode ${code}.</div>`;
+        }
+        stopScanner();
+        return;
+      }
+    } catch(err){
+      // keep scanning silently
+    }
+  }
+  scanLoopId = requestAnimationFrame(scanLoop);
+}
+
+function stopScanner(){
+  scanRunning = false;
+  if (scanLoopId) cancelAnimationFrame(scanLoopId);
+  if (scanStream){
+    scanStream.getTracks().forEach(t => t.stop());
+    scanStream = null;
+  }
+  scanVideo.srcObject = null;
+  scanFrame.style.display = 'none';
+  scanLine.style.display = 'none';
+  scanLoading.classList.remove('hide');
+  scanLoading.textContent = 'Camera is off';
+  scanStartBtn.style.display = '';
+  scanStopBtn.style.display = 'none';
+}
+
+scanStartBtn.addEventListener('click', () => {
+  if (!('BarcodeDetector' in window)){
+    // Still let them use the live camera view; detection just won't run.
+    scanResultCard.innerHTML = '<div class="scan-empty">Your browser does not support live barcode scanning. Use the text search below instead.</div>';
+  }
+  startScanner();
+});
+scanStopBtn.addEventListener('click', stopScanner);
 </script>
 </body>
 </html>
