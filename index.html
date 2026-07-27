@@ -809,7 +809,7 @@
 /* ============ EXERCISE LIBRARY ============ */
 const exercises = [
   {name:'Push-Up', muscle:'Push', sets:'3 x 12', desc:'Keep your core tight and lower your chest to just above the floor.', work:30, rest:15},
-  {name:'Bodyweight Squat', muscle:'Legs', sets:'4 x 15', desc:'Sit back like you\\'re reaching for a chair, keep knees over ankles.', work:40, rest:20},
+  {name:'Bodyweight Squat', muscle:'Legs', sets:'4 x 15', desc:'Sit back like you are reaching for a chair, keep knees over ankles.', work:40, rest:20},
   {name:'Plank', muscle:'Core', sets:'3 x hold', desc:'Straight line from shoulders to heels, brace your abs.', work:45, rest:20},
   {name:'Lunges', muscle:'Legs', sets:'3 x 12/leg', desc:'Step forward, drop the back knee close to the floor, drive back up.', work:40, rest:20},
   {name:'Pull-Up', muscle:'Pull', sets:'4 x max', desc:'Pull your chin over the bar, control the descent.', work:30, rest:30},
@@ -895,12 +895,12 @@ document.getElementById('modalClose').addEventListener('click', () => {
 /* ============ QUIZ ============ */
 const quizQuestions = [
   {q:'Which muscle group do squats primarily target?', options:['Quadriceps & glutes','Biceps','Chest','Forearms'], correct:0},
-  {q:'What should stay straight during a plank?', options:['Only your arms','A line from shoulders to heels','Your neck alone','It doesn\\'t matter'], correct:1},
+  {q:'What should stay straight during a plank?', options:['Only your arms','A line from shoulders to heels','Your neck alone','It does not matter'], correct:1},
   {q:'How many seconds of rest is typical after a hard 30s interval?', options:['5 seconds','60-90 seconds','No rest needed','15-20 seconds'], correct:3},
   {q:'Push-ups primarily train which muscles?', options:['Hamstrings','Chest, shoulders & triceps','Calves','Lower back only'], correct:1},
-  {q:'What\\'s the main cue for a proper lunge?', options:['Lean far forward','Keep the back knee close to the floor','Lock your front knee','Look at the ceiling'], correct:1},
+  {q:'What is the main cue for a proper lunge?', options:['Lean far forward','Keep the back knee close to the floor','Lock your front knee','Look at the ceiling'], correct:1},
   {q:'Pull-ups mainly target which muscle group?', options:['Back & biceps','Quadriceps','Abs only','Calves'], correct:0},
-  {q:'Why warm up before a workout?', options:['To burn extra calories only','To increase blood flow and reduce injury risk','It\\'s optional and does nothing','To save time'], correct:1},
+  {q:'Why warm up before a workout?', options:['To burn extra calories only','To increase blood flow and reduce injury risk','It is optional and does nothing','To save time'], correct:1},
   {q:'What does "progressive overload" mean?', options:['Doing the same workout forever','Gradually increasing difficulty over time','Skipping rest days','Only lifting heavier once a year'], correct:1},
   {q:'Which is a cardio-focused exercise?', options:['Bicep curl','Burpees','Static plank','Wrist curl'], correct:1},
   {q:'Best time to stretch cooling muscles?', options:['Never','Only before sleeping','After your workout, once warm','Before waking up'], correct:2},
@@ -978,7 +978,7 @@ renderQuiz();
       state = 'waiting';
       box.classList.remove('go','early');
       msg.textContent = 'Wait for it...';
-      sub.textContent = 'Don\\'t click yet';
+      sub.textContent = 'Do not click yet';
       const delay = 800 + Math.random()*2200;
       timeoutId = setTimeout(() => {
         state = 'go';
